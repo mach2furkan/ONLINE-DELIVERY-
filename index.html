@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Menü ve Sipariş Sistemi</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f8ff;
+    }
+
+    header {
+      background-color: #ff7f50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      background-color: #ffa07a;
+      padding: 0.5rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .menu-item {
+      border: 2px solid #fa8072;
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .menu-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu-item img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .menu-item h3 {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+      color: #ff4500;
+    }
+
+    .menu-item p {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .menu-item button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #32cd32;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .menu-item button:hover {
+      background-color: #228b22;
+    }
+
+    .cart {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border: 2px solid #ffa500;
+      border-radius: 8px;
+      background-color: #fffacd;
+    }
+
+    .cart h2 {
+      margin-bottom: 1rem;
+      color: #d2691e;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .cart-item button {
+      background-color: #ff6347;
+      border: none;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: #20b2aa;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-form label {
+      margin-top: 1rem;
+      color: #8a2be2;
+    }
+
+    .contact-form input, .contact-form textarea {
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    .contact-form button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #00ced1;
+      color: white;
+      cursor: pointer;
+    }
+
+    .contact-form button:hover {
+      background-color: #008b8b;
+    }
+
+    .about-section {
+      background-color: #ffe4e1;
+      padding: 2rem;
+      margin-top: 2rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .about-section h2 {
+      color: #ff69b4;
+    }
+
+    .promo-banner {
+      text-align: center;
+      background-color: #dda0dd;
+      color: white;
+      padding: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+
+    .testimonial {
+      background-color: #e6e6fa;
+      padding: 2rem;
+      margin-top: 2rem;
+      border-radius: 8px;
+    }
+
+    .testimonial h3 {
+      color: #6a5acd;
+    }
+
+    .faq-section {
+      background-color: #f5f5dc;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+
+    .faq-section h2 {
+      color: #ff8c00;
+    }
+
+    .faq-section p {
+      margin: 1rem 0;
+    }
+
+    .gallery-section {
+      background-color: #fff0f5;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+
+    .gallery-section h2 {
+      color: #dc143c;
+    }
+
+    .gallery-section img {
+      width: 150px;
+      height: 150px;
+      margin: 0.5rem;
+      border-radius: 8px;
+      border: 2px solid #ff69b4;
+    }
+
+    .location-section {
+      background-color: #f0fff0;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+
+    .location-section h2 {
+      color: #32cd32;
+    }
+
+    .location-section iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .reviews-section {
+      background-color: #d3f8e2;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+
+    .reviews-section h2 {
+      color: #006400;
+    }
+
+    .reviews-section p {
+      font-style: italic;
+    }
+
+    .newsletter-section {
+      background-color: #fbe7c6;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .newsletter-section h2 {
+      color: #ff4500;
+    }
+
+    .newsletter-section input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+    }
+
+    .newsletter-section button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #32cd32;
+      color: white;
+    }
+
+    .special-offers-section {
+      background-color: #fce2e2;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .special-offers-section h2 {
+      color: #b22222;
+    }
+
+    .new-arrivals-section {
+      background-color: #ffe4b5;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .new-arrivals-section h2 {
+      color: #ff8c00;
+    }
+
+    .chef-intro-section {
+      background-color: #e6ffe6;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .chef-intro-section h2 {
+      color: #006400;
+    }
+
+    .loyalty-program-section {
+      background-color: #e6e6ff;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .loyalty-program-section h2 {
+      color: #4b0082;
+    }
+
+    .events-section {
+      background-color: #ffe4e1;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .events-section h2 {
+      color: #ff1493;
+    }
+
+    .blog-section {
+      background-color: #f0f8ff;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .blog-section h2 {
+      color: #4682b4;
+    }
+
+    .delivery-tracking-section {
+      background-color: #f5fffa;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .delivery-tracking-section h2 {
+      color: #2e8b57;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>APRON RESTAURANT </h1>
+</header>
+
+<nav>
+  <a href="#home">Ana Sayfa</a>
+  <a href="#menu">Menü</a>
+  <a href="#cart">Sepet</a>
+  <a href="#contact">İletişim</a>
+</nav>
+
+<div class="hero">
+  <h1>Lezzetli Yemekler Kapınızda!</h1>
+</div>
+
+<main class="content">
+  <section class="promo-banner">
+    Günün Fırsatı: Tüm Tatlılarda %20 İndirim!
+  </section>
+
+  <section id="menu">
+    <h2>Menü</h2>
+    <div class="menu">
+      <div class="menu-item">
+        <img src="https://via.placeholder.com/300" alt="Tavuk Izgara">
+        <h3>Tavuk Izgara</h3>
+        <p>Lezzetli tavuk ızgara, salata ile servis edilir. - 50 TL</p>
+        <button>Sepete Ekle</button>
+      </div>
+      <div class="menu-item">
+        <img src="https://via.placeholder.com/300" alt="Köfte">
+        <h3>Köfte</h3>
+        <p>Izgara köfte, garnitürlerle. - 60 TL</p>
+        <button>Sepete Ekle</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2>Hakkımızda</h2>
+    <p>Restoranımız 2024 yılından beri en kaliteli yemekleri ve servisi sunmaktadır.</p>
+  </section>
+
+  <section class="gallery-section">
+    <h2>Galeri</h2>
+    <div>
+      <img src="https://via.placeholder.com/150" alt="Yemek 1">
+      <img src="https://via.placeholder.com/150" alt="Yemek 2">
+      <img src="https://via.placeholder.com/150" alt="Yemek 3">
+    </div>
+  </section>
+
+  <section class="location-section">
+    <h2>Konumumuz</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093744!2d144.95373531592207!3d-37.81720944202109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577df55dba6ad07!2sFederation+Square!5e0!3m2!1sen!2sau!4v1510912768780"></iframe>
+  </section>
+
+  <section id="cart">
+    <h2>Sepet</h2>
+    <div class="cart">
+      <p>Sepetiniz şu an boş.</p>
+      <button>Siparişi Onayla</button>
+    </div>
+  </section>
+
+  <section class="reviews-section">
+    <h2>Kullanıcı İncelemeleri</h2>
+    <p>"Efsane tatlar!" - </p>
+    <p>"Kesinlikle tekrar sipariş vereceğim." - </p>
+  </section>
+
+  <section class="newsletter-section">
+    <h2>Bültenimize Katılın</h2>
+    <p>En yeni kampanya ve duyurulardan haberdar olun!</p>
+    <input type="email" placeholder="E-posta adresiniz">
+    <button>Kayıt Ol</button>
+  </section>
+
+  <section class="special-offers-section">
+    <h2>Özel Teklifler</h2>
+    <p>Sadece bu hafta: 2 al 1 öde fırsatı!</p>
+  </section>
+
+  <section class="new-arrivals-section">
+    <h2>Yeni Gelenler</h2>
+    <p>Denemeye değer yeni lezzetler! Menüye göz atın.</p>
+  </section>
+
+  <section class="chef-intro-section">
+    <h2>Aşçılarımızı Tanıyın</h2>
+    <p>Usta aşçılarımız, yemeklerimizi mükemmel hale getiriyor.</p>
+  </section>
+
+  <section class="loyalty-program-section">
+    <h2>Sadakat Programı</h2>
+    <p>Her siparişte puan kazanın, özel indirimler ve fırsatlar yakalayın!</p>
+  </section>
+
+  <section class="events-section">
+    <h2>Etkinlikler</h2>
+    <p>Canlı müzik ve özel etkinliklerimiz için takvimi kontrol edin!</p>
+  </section>
+
+  <section class="blog-section">
+    <h2>Blog</h2>
+    <p>Yemek tarifleri, restoran hikayeleri ve daha fazlası için blogumuzu ziyaret edin!</p>
+  </section>
+
+  <section class="delivery-tracking-section">
+    <h2>Teslimat Takibi</h2>
+    <p>Şimdi siparişinizi takip edin ve ne zaman ulaşacağını öğrenin.</p>
+  </section>
+
+  <section id="contact">
+    <h2>İletişim</h2>
+    <form class="contact-form">
+      <label for="name">İsim:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">E-posta:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Mesaj:</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit">Gönder</button>
+    </form>
+  </section>
+
+</main> <!-- Ensure the main tag is properly closed -->
+
+<footer>
+  <p>&copy; 2024 Restoran Adı. Tüm hakları saklıdır.</p>
+</footer>
